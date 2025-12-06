@@ -44,7 +44,7 @@ function createWeatherCard(data) {
 
     container.innerHTML = `
         <h2>${data.name}</h2>
-        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
+        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
         <p class="weather-temp">${Math.round(data.main.temp)}°C</p>
         <p class="weather-desc">${data.weather[0].description}</p>
         <p>Humidité : ${data.main.humidity}%</p>
@@ -83,11 +83,13 @@ function getWeatherColor(condition) {
 }
 
 // Spotify Config
-const clientId = "b862d45ee4854785b4bb4237875d84e7"; // ⬅️ Remplacez par le Client ID de votre app Development
-const redirectUri = "https://jof06.github.io/MeteoVert";
+const clientId = "b862d45ee4854785b4bb4237875d84e7";
+// S'adapte automatiquement à l'environnement (local ou production)
+const redirectUri = window.location.origin + window.location.pathname;
 const scope = "user-top-read";
 
 console.log("🔗 Redirect URI utilisé :", redirectUri);
+console.log("🌍 Environnement :", window.location.hostname === "127.0.0.1" ? "Local" : "Production");
 
 // Vérifier si on revient de Spotify (callback)
 function checkSpotifyCallback() {
@@ -140,20 +142,21 @@ async function loadTopTracks() {
 
         const data = await res.json();
 
-        if (!data.items) {
-            container.innerHTML = "<p>Permission manquante, reconnecte-toi.</p>";
+        if (!data.items || data.items.length === 0) {
+            container.innerHTML = "<p>Aucun titre trouvé. Écoute plus de musique sur Spotify ! 🎵</p>";
             return;
         }
 
         container.innerHTML = "<h3>🎧 Tes derniers sons préférés</h3>";
 
         data.items.forEach(track => {
-            container.innerHTML += `
-                <div class="track">
-                    <img src="${track.album.images[2]?.url || track.album.images[0]?.url}">
-                    <span>${track.name} — ${track.artists[0].name}</span>
-                </div>
+            const trackDiv = document.createElement("div");
+            trackDiv.className = "track";
+            trackDiv.innerHTML = `
+                <img src="${track.album.images[2]?.url || track.album.images[0]?.url}" alt="${track.name}">
+                <span><strong>${track.name}</strong> — ${track.artists[0].name}</span>
             `;
+            container.appendChild(trackDiv);
         });
     } catch (err) {
         console.error("Erreur Spotify :", err);
@@ -165,5 +168,3 @@ async function loadTopTracks() {
 // Au chargement de la page
 checkSpotifyCallback();
 loadTopTracks();
-
-
