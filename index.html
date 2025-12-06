@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MétéoVert</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MétéoVert</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <div id="header">
-        <h1>MétéoVert</h1>
-        <form id="city-form">
-            <input type="text" id="city-input" placeholder="Ajouter une ville" required>
-            <button type="submit">OK</button>
-        </form>
+  <div id="header">
+    <h1>MétéoVert</h1>
+      <form id="city-form">
+        <input type="text" id="city-input" placeholder="Ajouter une ville" required />
+        <button type="submit">OK</button>
+      </form>
     </div>
+  </div>
 
-    <div id="body">
-        <div id="map" style="height: 400px;"></div>
-        <div id="weather-list"></div>
-    </div>
+  <div id="body">
+    <div id="map" style="height: 400px;"></div>
+    <div id="weather-list"></div>
+  </div>
 
-    <div id="footer">
-        <p>© 2025 MétéoVert</p>
-    </div>
+  <!-- Section Spotify: on la place en bas, fixe -->
+  <div id="spotify-section">
+    <button id="spotify-login">Connecter Spotify</button>
+    <div id="top-tracks"></div>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="footer">
+    <p>© 2025 MétéoVert</p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
