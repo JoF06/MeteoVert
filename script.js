@@ -84,7 +84,7 @@ function getWeatherColor(condition) {
 
 // Spotify Config
 const clientId = "b862d45ee4854785b4bb4237875d84e7"; // ⬅️ Remplacez par le Client ID de votre app Development
-const redirectUri = "http://127.0.0.1:5501/index.html";
+const redirectUri = "https://jof06.github.io/MeteoVert/";
 const scope = "user-top-read";
 
 console.log("🔗 Redirect URI utilisé :", redirectUri);
@@ -165,3 +165,4 @@ async function loadTopTracks() {
 // Au chargement de la page
 checkSpotifyCallback();
 loadTopTracks();
+
