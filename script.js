@@ -174,3 +174,4 @@ async function loadTopTracks() {
 // Au chargement de la page
 checkSpotifyCallback();
 loadTopTracks();
+
