@@ -84,12 +84,11 @@ function getWeatherColor(condition) {
 
 // Spotify Config
 const clientId = "b862d45ee4854785b4bb4237875d84e7";
-// S'adapte automatiquement à l'environnement (local ou production)
-const redirectUri = window.location.origin + window.location.pathname;
+// CORRECTION : Utiliser l'URL complète de votre page GitHub
+const redirectUri = "https://jof06.github.io/MeteoVert/";
 const scope = "user-top-read";
 
 console.log("🔗 Redirect URI utilisé :", redirectUri);
-console.log("🌍 Environnement :", window.location.hostname === "127.0.0.1" ? "Local" : "Production");
 
 // Vérifier si on revient de Spotify (callback)
 function checkSpotifyCallback() {
@@ -108,22 +107,29 @@ function checkSpotifyCallback() {
 
 // Bouton Spotify
 const loginBtn = document.getElementById("spotify-login");
-loginBtn.addEventListener("click", () => {
-    const authUrl =
-        "https://accounts.spotify.com/authorize" +
-        `?client_id=${clientId}` +
-        `&response_type=token` +
-        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
-        `&scope=${encodeURIComponent(scope)}` +
-        `&show_dialog=true`;
+if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+        const authUrl =
+            "https://accounts.spotify.com/authorize" +
+            `?client_id=${clientId}` +
+            `&response_type=token` +
+            `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+            `&scope=${encodeURIComponent(scope)}` +
+            `&show_dialog=true`;
 
-    console.log("➡ Redirection Spotify");
-    window.location.href = authUrl;
-});
+        console.log("➡ Redirection Spotify vers:", authUrl);
+        window.location.href = authUrl;
+    });
+}
 
 // Récupère et affiche les top tracks
 async function loadTopTracks() {
     const container = document.getElementById("top-tracks");
+    
+    if (!container) {
+        console.error("Élément #top-tracks introuvable");
+        return;
+    }
 
     if (!spotifyToken) {
         container.innerHTML = "<p>👇 Connecte-toi à Spotify pour voir tes sons</p>";
